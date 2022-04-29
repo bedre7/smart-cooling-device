@@ -1,10 +1,14 @@
 package com.project.smartdevice;
 
-import com.project.smartdevice.utilities.CoolerState;
+import com.project.smartdevice.utilities.Operation;
 
 public class SmartDeviceApp {
     public static void main(String[] args)
     {
-        Tools.awaitUser(5);
+        NetworkInterface networkInterface = new NetworkInterface();
+        Operation operation = networkInterface.displayMenu();
+
+        System.out.println(operation);
+
     }
 }

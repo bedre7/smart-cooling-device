@@ -1,8 +1,8 @@
 package com.project.smartdevice.utilities;
 
 public enum CoolerState {
-    OFF("The cooler is turned Off"),
-    ON("The cooler is turned On"),
+    OFF("off"),
+    ON("On"),
     TESTING("Testing ..."),
     WAITING("Waiting ..."),
     DETECTING("Detecting Temperature ..."),

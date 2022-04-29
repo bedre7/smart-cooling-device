@@ -27,6 +27,6 @@ public class Tools {
     }
     public static void clearScreen()
     {
-        System.out.println(new String(new char[20]).replace("\0", "\r\n"));
+        System.out.println("\n".repeat(15));
     }
 }
