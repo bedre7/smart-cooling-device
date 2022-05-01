@@ -1,6 +1,6 @@
 package com.project.smartdevice;
 
-public class User {
+public class User implements IObserver {
 
     private String username;
     private String password;
@@ -33,7 +33,16 @@ public class User {
     }
 
     @Override
+    public void update(String message) {
+        System.out.println("Message to user \""+getUsername()+"\": -> "+message);
+    }
+
+
+    /*
+    @Override
     public String toString() {
         return "User{ username='" + username + '\'' + '}';
     }
+
+     */
 }
