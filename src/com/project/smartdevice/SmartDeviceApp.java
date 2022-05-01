@@ -6,9 +6,7 @@ public class SmartDeviceApp {
         NetworkInterface networkInterface = new NetworkInterface();
         networkInterface.displayMenu();
 
-        networkInterface.displayMenu();
-        networkInterface.displayMenu();
-        networkInterface.displayMenu();
+
 
 
 //        networkInterface.turnOnCooler();
