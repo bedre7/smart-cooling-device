@@ -4,7 +4,7 @@ public class SmartDeviceApp {
     public static void main(String[] args)
     {
         NetworkInterface networkInterface = new NetworkInterface();
-        networkInterface.displayMenu();
+//        networkInterface.displayMenu();
 
         System.out.println("test for github connection");
 
