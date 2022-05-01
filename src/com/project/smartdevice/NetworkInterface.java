@@ -64,7 +64,7 @@ public class NetworkInterface implements INetworkInterface {
         this.displayMessage("+---------------------------------------------------------+\n");
 
 //        IUserService userService = new UserService();
-
+            User user=null;
 //        int loginAttempts = 0;
 //        boolean userFound;
 //
@@ -86,7 +86,7 @@ public class NetworkInterface implements INetworkInterface {
 //                this.promptUser(Icons.PASSWORD + " Password ");
 //                String password = userService.readUserInput();
 //
-//                User user = userService.loginUser(username, password);
+//                user = userService.loginUser(username, password);
 //
 //                return user;
 //            }
