@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class NetworkInterface implements INetworkInterface {
 
-    private IMainProcessingPlatform mainPP;
+    private final IMainProcessingPlatform mainPP;
 
     public NetworkInterface(){
         mainPP = new MainProcessingPlatform();
@@ -25,7 +25,7 @@ public class NetworkInterface implements INetworkInterface {
         this.displayMessage("|       [4] Log Out                                       |");
         this.displayMessage("|                                                         |");
         this.displayMessage("|=========================================================|");
-        System.out.print("\nEnter your choice: ");
+        this.promptUser("Enter your choice");
 
         int choice;
         Scanner scanner = new Scanner(System.in);
@@ -53,14 +53,45 @@ public class NetworkInterface implements INetworkInterface {
     }
 
     @Override
+    public void promptUser(String request) {
+        System.out.print(request + ": ");
+    }
+
+    @Override
     public User displayLogin() {
         this.displayMessage("+---------------------------------------------------------+");
         this.displayMessage("|                           LOGIN                         |");
         this.displayMessage("+---------------------------------------------------------+\n");
 
-        this.displayMessage(Icons.USER + "Username: ");
-        this.displayMessage(Icons.PASSWORD + "Password: ");
+//        IUserService userService = new UserService();
 
+//        int loginAttempts = 0;
+//        boolean userFound;
+//
+//        do{
+//            this.promptUser(Icons.USER + " Username ");
+//            String username = userService.readUserInput();
+//
+//            userFound = userService.searchUser(username);
+//
+//            loginAttempts++;
+//            if(!userFound)
+//                this.displayMessage("No such username was found, please try again...");
+//
+//            if(loginAttempts == 3)
+//                Tools.awaitUser(5);
+//
+//            if(userFound)
+//            {
+//                this.promptUser(Icons.PASSWORD + " Password ");
+//                String password = userService.readUserInput();
+//
+//                User user = userService.loginUser(username, password);
+//
+//                return user;
+//            }
+//        }while(!userFound);
+//
         return null;
     }
 
