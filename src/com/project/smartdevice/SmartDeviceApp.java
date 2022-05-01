@@ -6,11 +6,7 @@ public class SmartDeviceApp {
         NetworkInterface networkInterface = new NetworkInterface();
         networkInterface.displayMenu();
 
-        System.out.println("dd");
-        System.out.println("dfgdg");
-        System.out.println("gdgdg");
-
-
+        System.out.println("test for github connection");
 
 //        networkInterface.turnOnCooler();
 //        networkInterface.turnOffCooler();
