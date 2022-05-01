@@ -1,5 +1,7 @@
 package com.project.smartdevice;
 
+import com.project.smartdevice.utilities.CoolerState;
+import com.project.smartdevice.utilities.Icons;
 import com.project.smartdevice.utilities.Operation;
 
 import java.util.Scanner;
@@ -14,13 +16,15 @@ public class NetworkInterface implements INetworkInterface {
     @Override
     public Operation displayMenu() {
 
-        this.displayMessage("+--------------------------------------------------------+");
-        this.displayMessage("|                           MENU                         |");
-        this.displayMessage("+--------------------------------------------------------+");
-        this.displayMessage("       [1] Display Temperature");
-        this.displayMessage("       [2] Turn On the Cooler");
-        this.displayMessage("       [3] Turn Off the Cooler");
-        this.displayMessage("       [4] Log Out");
+        this.displayMessage("+=========================================================+");
+        this.displayMessage("|                      MAIN MENU                          |");
+        this.displayMessage("+=========================================================+");
+        this.displayMessage("|       [1] Display Temperature                           |");
+        this.displayMessage("|       [2] Turn On the Cooler                            |");
+        this.displayMessage("|       [3] Turn Off the Cooler                           |");
+        this.displayMessage("|       [4] Log Out                                       |");
+        this.displayMessage("|                                                         |");
+        this.displayMessage("|=========================================================|");
         System.out.print("\nEnter your choice: ");
 
         int choice;
@@ -49,25 +53,63 @@ public class NetworkInterface implements INetworkInterface {
     }
 
     @Override
-    public void displayLogin() {
+    public User displayLogin() {
+        this.displayMessage("+---------------------------------------------------------+");
+        this.displayMessage("|                           LOGIN                         |");
+        this.displayMessage("+---------------------------------------------------------+\n");
 
+        this.displayMessage(Icons.USER + "Username: ");
+        this.displayMessage(Icons.PASSWORD + "Password: ");
+
+        return null;
     }
 
     @Override
     public void displayTemperature() {
-        String response = mainPP.sendRequestToTempertureSensor();
-        this.displayMessage(response);
+
+        this.displayMessage(Icons.LOADING + " " + CoolerState.PROCESSING);
+        Tools.delay(2000);
+
+        this.displayMessage(Icons.WAITING + " " + CoolerState.WAITING);
+        Tools.delay();
+
+        Double temperature = mainPP.sendRequestToTempertureSensor();
+
+        this.displayMessage(Icons.THERMOMETER + " " + CoolerState.DETECTING);
+        Tools.delay();
+
+        if(temperature != null){
+            this.displayMessage("The current temperature is: " + temperature + "°C");
+        }
     }
 
     @Override
     public void turnOnCooler() {
-        String response = mainPP.sendRequestToActuator(Operation.TURNONCOOLER);
-        this.displayMessage(response);
+
+        this.displayMessage(Icons.LOADING + " " + CoolerState.PROCESSING);
+        Tools.delay(2000);
+
+        String error = mainPP.sendRequestToActuator(Operation.TURNONCOOLER);
+
+        this.displayMessage(Icons.WAITING + " " + CoolerState.WAITING);
+        Tools.delay();
+
+        if(error == null)
+            this.displayMessage("The cooler has been turned on successfully");
     }
 
     @Override
     public void turnOffCooler() {
-        String response = mainPP.sendRequestToActuator(Operation.TURNOFFCOOLER);
-        this.displayMessage(response);
+
+        this.displayMessage(Icons.LOADING + " " + CoolerState.PROCESSING);
+        Tools.delay(2000);
+
+        String error = mainPP.sendRequestToActuator(Operation.TURNOFFCOOLER);
+
+        this.displayMessage(Icons.WAITING + " " + CoolerState.WAITING);
+        Tools.delay();
+
+        if(error == null)
+            this.displayMessage("The cooler has been turned off successfully");
     }
 }

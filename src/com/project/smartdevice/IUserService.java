@@ -2,5 +2,5 @@ package com.project.smartdevice;
 
 public interface IUserService {
     String readUserInput();
-    User login();
+    User authenticateUser();
 }

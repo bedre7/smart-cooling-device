@@ -1,14 +1,15 @@
 package com.project.smartdevice;
 
-import com.project.smartdevice.utilities.Operation;
-
 public class SmartDeviceApp {
     public static void main(String[] args)
     {
         NetworkInterface networkInterface = new NetworkInterface();
-        Operation operation = networkInterface.displayMenu();
+        networkInterface.displayMenu();
+//        networkInterface.turnOnCooler();
+//        networkInterface.turnOffCooler();
 
-        System.out.println(operation);
+//        for(Icons icon : Icons.values())
+//            System.out.print(icon + " ");
 
     }
 }

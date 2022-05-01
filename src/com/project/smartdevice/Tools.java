@@ -13,13 +13,13 @@ public class Tools {
         }
     }
     public static void delay(){
-        delay(4000);
+        delay(1000);
     }
     public static void awaitUser(int seconds)
     {
         for(;seconds >= 0; seconds--)
         {
-            delay(1000);
+            delay();
             clearScreen();
             System.out.println("Please try again in ... (" + seconds + ")");
         }

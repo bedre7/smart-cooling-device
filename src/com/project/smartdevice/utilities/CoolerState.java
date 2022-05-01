@@ -3,20 +3,20 @@ package com.project.smartdevice.utilities;
 public enum CoolerState {
     OFF("off"),
     ON("On"),
-    TESTING("Testing ..."),
-    WAITING("Waiting ..."),
+    TESTING("The device is being tested ..."),
+    WAITING("Waiting for response ..."),
     DETECTING("Detecting Temperature ..."),
     PROCESSING("Your request is being processed..."),
     OUTOFSERVICE("The cooler is out of service");
 
-    public String details;
+    public String detail;
 
-    CoolerState(String details){
-        this.details = details;
+    CoolerState(String detail){
+        this.detail = detail;
     }
 
     @Override
     public String toString() {
-        return details;
+        return detail;
     }
 }

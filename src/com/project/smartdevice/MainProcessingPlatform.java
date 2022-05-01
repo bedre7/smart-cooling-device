@@ -1,12 +1,14 @@
 package com.project.smartdevice;
 
 import com.project.smartdevice.utilities.CoolerState;
+import com.project.smartdevice.utilities.Icons;
 import com.project.smartdevice.utilities.Operation;
 
 public class MainProcessingPlatform implements IMainProcessingPlatform{
 
     private IActuator actuator;
     private ITemperatureSensor temperatureSensor;
+//    private ISubject publisher;
 
     public MainProcessingPlatform(){
         actuator = new Actuator();
@@ -24,32 +26,33 @@ public class MainProcessingPlatform implements IMainProcessingPlatform{
             case TURNOFFCOOLER -> newState = actuator.turnOffCooler();
         }
 
-        if(prevState == newState)
-        {
-            response = "The cooler is already " + prevState;
+        if(newState == CoolerState.OUTOFSERVICE){
+            //notify subscriber
         }
-        else
-        {
-            response = "The cooler has been turned " + newState + " successfully";
+        else if(prevState == newState){
+            response = "The cooler is already " + prevState;
+            //notify subscriber
         }
 
         return response;
     }
 
     @Override
-    public String sendRequestToTempertureSensor() {
+    public Double sendRequestToTempertureSensor() {
         String response = null;
         Double temperature = temperatureSensor.readTemperature();
 
-        if(temperature == null)
-        {
-            response = "An error has occured: Unable to read temperature...";
+        if(temperature == null){
+            response = Icons.ERROR + " Error: Unable to read temperature...";
         }
-        else
-        {
-            response = "The current temperature is " + temperature + "°C";
+        else if(temperature > 30){
+            response = "Temperature is too high " + Icons.WARNING
+                        + ", you might want to turn on the cooler";
         }
 
-        return response;
+        if(response != null)
+            System.out.print("");//notify subscriber
+
+        return temperature;
     }
 }
