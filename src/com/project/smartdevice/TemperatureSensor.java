@@ -18,7 +18,7 @@ public class TemperatureSensor implements ITemperatureSensor{
 
         if(error < efficiency)
         {
-            temperature = (rand.nextDouble(40) + 5);
+            temperature = (rand.nextDouble(30) + 5);
 
         }
         else

@@ -66,7 +66,6 @@ public class MainProcessingPlatform implements IMainProcessingPlatform{
             this.publisher.notify("Temperature is too high " + Icons.WARNING
                                     + ", you might want to turn on the cooler");
         }
-
         return temperature;
     }
 }
