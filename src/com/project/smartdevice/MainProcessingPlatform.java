@@ -19,6 +19,7 @@ public class MainProcessingPlatform implements IMainProcessingPlatform{
         publisher = new Publisher();
     }
 
+    @Override
     public void attachUser(IObserver subscriber) {
         this.publisher.attach(subscriber);
     }
