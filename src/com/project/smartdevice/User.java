@@ -38,11 +38,8 @@ public class User implements IObserver {
     }
 
 
-    /*
     @Override
     public String toString() {
-        return "User{ username='" + username + '\'' + '}';
+        return "User{ " + username + " } ";
     }
-
-     */
 }

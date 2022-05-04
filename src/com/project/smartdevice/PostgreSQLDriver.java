@@ -10,8 +10,14 @@ public class PostgreSQLDriver implements IDatabaseMS {
     public Connection connect() {
         Connection con=null;
 
+        final String db_NAME="smartDevice";
+        final String db_USER="postgres";
+        final int db_PORT=5432;
+        final String db_PASSWORD="1234";
+        final String db_URLJDBC="jdbc:postgresql://localhost:"+db_PORT+"/"+db_NAME;
+
         try{
-            con= DriverManager.getConnection("jdbc:postgresql://localhost:5432/smartDevice","postgres","1234");
+            con= DriverManager.getConnection(db_URLJDBC,db_USER,db_PASSWORD);
             if(con!=null)
                 System.out.println("Connected..."+ Icons.SUCCESS);
             else
@@ -72,6 +78,8 @@ public class PostgreSQLDriver implements IDatabaseMS {
 
                     user = new User.Builder(username, password)
                             .build();
+
+                    System.out.println(user+ "has been authenticated ");
                 }
                 rs.close();
                 stmt.close();
