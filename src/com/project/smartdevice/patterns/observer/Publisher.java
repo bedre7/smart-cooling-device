@@ -1,4 +1,4 @@
-package com.project.smartdevice.patterns.obsever;
+package com.project.smartdevice.patterns.observer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -9,7 +9,7 @@ public enum CoolerState {
     PROCESSING("Your request is being processed..."),
     OUTOFSERVICE("The cooler is out of service");
 
-    public String detail;
+    public final String detail;
 
     CoolerState(String detail){
         this.detail = detail;

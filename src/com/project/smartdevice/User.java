@@ -1,6 +1,6 @@
 package com.project.smartdevice;
 
-import com.project.smartdevice.patterns.obsever.IObserver;
+import com.project.smartdevice.patterns.observer.IObserver;
 import com.project.smartdevice.utilities.Icons;
 
 public class User implements IObserver {

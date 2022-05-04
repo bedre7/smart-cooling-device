@@ -9,9 +9,9 @@ public class Actuator implements IActuator{
     private CoolerState currentState;
     private final double efficiency;
 
-    public Actuator()
+    public Actuator(CoolerState initialState)
     {
-        currentState = CoolerState.OFF;
+        currentState = initialState;
         efficiency = 0.97;
     }
 

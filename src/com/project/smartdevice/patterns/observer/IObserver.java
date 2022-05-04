@@ -1,4 +1,4 @@
-package com.project.smartdevice.patterns.obsever;
+package com.project.smartdevice.patterns.observer;
 
 public interface IObserver {
      void update(String message);

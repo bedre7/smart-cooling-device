@@ -19,9 +19,9 @@ public class PostgreSQLDriver implements IDatabaseMS {
         try{
             con= DriverManager.getConnection(db_URLJDBC,db_USER,db_PASSWORD);
             if(con!=null)
-                System.out.println("Connected..."+ Icons.SUCCESS);
+                System.out.println("Connected successfully... "+ Icons.SUCCESS);
             else
-                System.out.println("Connection error "+Icons.ERROR);
+                System.out.println("Connection error " + Icons.ERROR);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -31,7 +31,7 @@ public class PostgreSQLDriver implements IDatabaseMS {
 
     @Override
     public boolean searchUser(String username) {
-        System.out.println("searching user..."+Icons.LOADING);
+        System.out.println(Icons.LOADING + " Searching user...");
 
         boolean isUser = false;
 
@@ -44,7 +44,7 @@ public class PostgreSQLDriver implements IDatabaseMS {
 
             conn.close();
 
-            isUser = rs.next();
+            isUser =rs.next();
 
             rs.close();
             stmt.close();
@@ -59,7 +59,7 @@ public class PostgreSQLDriver implements IDatabaseMS {
     public User authenticateUser(String username, String password) {
         User user = null;
 
-        System.out.println(Icons.LOADING+" User authenticate");
+        System.out.println(Icons.LOADING+" Authenticating user...");
 
         if(searchUser(username)){
 
