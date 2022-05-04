@@ -1,9 +1,9 @@
-package com.project.smartdevice;
+package com.project.smartdevice.patterns.obsever;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Publisher implements ISubject{
+public class Publisher implements ISubject {
     private List<IObserver> subscribers=new ArrayList<>();
 
     @Override

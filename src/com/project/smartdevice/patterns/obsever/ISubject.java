@@ -1,4 +1,4 @@
-package com.project.smartdevice;
+package com.project.smartdevice.patterns.obsever;
 
 public interface ISubject {
      void attach(IObserver subscriber);

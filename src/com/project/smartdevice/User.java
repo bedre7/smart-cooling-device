@@ -1,5 +1,8 @@
 package com.project.smartdevice;
 
+import com.project.smartdevice.patterns.obsever.IObserver;
+import com.project.smartdevice.utilities.Icons;
+
 public class User implements IObserver {
 
     private String username;
@@ -9,6 +12,12 @@ public class User implements IObserver {
         this.username=builder.username;
         this.password=builder.password;
     }
+
+    @Override
+    public void update(String message) {
+        System.out.println(Icons.NOTIFICATION +"Message to user \""+getUsername()+"\": -> "+message);
+    }
+
     public static class Builder{
 
         private String username;
@@ -31,12 +40,6 @@ public class User implements IObserver {
     public String getPassword() {
         return password;
     }
-
-    @Override
-    public void update(String message) {
-        System.out.println("Message to user \""+getUsername()+"\": -> "+message);
-    }
-
 
     @Override
     public String toString() {
