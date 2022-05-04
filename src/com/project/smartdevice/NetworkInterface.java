@@ -9,10 +9,13 @@ import java.util.Scanner;
 public class NetworkInterface implements INetworkInterface {
 
     private final IMainProcessingPlatform mainPP;
+    private User user;
 
     public NetworkInterface(){
         mainPP = new MainProcessingPlatform();
+        user = null;
     }
+
     @Override
     public Operation displayMenu() {
 
@@ -24,7 +27,7 @@ public class NetworkInterface implements INetworkInterface {
         this.displayMessage("|       [3] Turn Off the Cooler                           |");
         this.displayMessage("|       [4] Log Out                                       |");
         this.displayMessage("|                                                         |");
-        this.displayMessage("|=========================================================|");
+        this.displayMessage("|=========================================================|\n");
         this.promptUser("Enter your choice");
 
         int choice;
@@ -58,41 +61,59 @@ public class NetworkInterface implements INetworkInterface {
     }
 
     @Override
-    public User displayLogin() {
-        this.displayMessage("+---------------------------------------------------------+");
+    public void displayLogin() {
+        this.displayMessage("\n+=========================================================+");
         this.displayMessage("|                           LOGIN                         |");
-        this.displayMessage("+---------------------------------------------------------+\n");
+        this.displayMessage("+=========================================================+\n\n");
 
-//        IUserService userService = new UserService();
-            User user=null;
-//        int loginAttempts = 0;
-//        boolean userFound;
-//
-//        do{
-//            this.promptUser(Icons.USER + " Username ");
-//            String username = userService.readUserInput();
-//
-//            userFound = userService.searchUser(username);
-//
-//            loginAttempts++;
-//            if(!userFound)
-//                this.displayMessage("No such username was found, please try again...");
-//
-//            if(loginAttempts == 3)
-//                Tools.awaitUser(5);
-//
-//            if(userFound)
-//            {
-//                this.promptUser(Icons.PASSWORD + " Password ");
-//                String password = userService.readUserInput();
-//
+        IUserService userService = new UserService(new PostgreSQLDriver());
+        int loginAttempts = 0;
+        boolean userWasFound = false;
+
+        do{
+            this.promptUser(Icons.USER + " Username ");
+            String username = userService.readUserInput();
+
+            userWasFound = true;
+//            userWasFound = userService.searchUser(username);
+            loginAttempts++;
+
+            if(!userWasFound){
+                this.displayMessage("\nNo such username was found, please try again...");
+                Tools.clearScreen();
+                if(loginAttempts == 3)
+                    Tools.awaitUser(5);
+            }
+            else if(userWasFound) {
+                this.promptUser(Icons.PASSWORD + " Password ");
+                String password = userService.readUserInput();
+
 //                user = userService.loginUser(username, password);
-//
-//                return user;
-//            }
-//        }while(!userFound);
-//
-        return null;
+                this.displayMessage("\n" + Icons.LOADING + " Logging you in...");
+                Tools.delay();
+
+                user = new User.Builder(username, password).build();
+                if(user == null){
+                    this.displayMessage("\nIncorrect password, please try again...");
+                    Tools.clearScreen();
+                }
+                else{
+                    this.displayMessage("Logged in successfully " + Icons.SUCCESS);
+                    this.displayMessage("Welcome " + user.getUsername() + "!\n");
+                    Tools.delay(4000);
+                    mainPP.attachUser(user);
+                }
+            }
+        }while(!userWasFound);
+    }
+
+    @Override
+    public void logoutUser() {
+        this.displayMessage(Icons.LOADING + " Logging you out... ");
+        Tools.delay();
+        this.mainPP.detachUser(user);
+        this.displayMessage("Logged out");
+        System.exit(0);
     }
 
     @Override
@@ -100,18 +121,14 @@ public class NetworkInterface implements INetworkInterface {
 
         this.displayMessage(Icons.LOADING + " " + CoolerState.PROCESSING);
         Tools.delay(2000);
-
-        this.displayMessage(Icons.WAITING + " " + CoolerState.WAITING);
+        this.displayMessage(Icons.WAITING + "  " + CoolerState.WAITING);
+        Tools.delay();
+        this.displayMessage(Icons.THERMOMETER + "  " + CoolerState.DETECTING);
         Tools.delay();
 
         Double temperature = mainPP.sendRequestToTempertureSensor();
-
-        this.displayMessage(Icons.THERMOMETER + " " + CoolerState.DETECTING);
-        Tools.delay();
-
-        if(temperature != null){
-            this.displayMessage("The current temperature is: " + temperature + "°C");
-        }
+        if(temperature != null)
+            this.displayMessage("\nThe current temperature is: " + temperature + "°C");
     }
 
     @Override
@@ -119,14 +136,12 @@ public class NetworkInterface implements INetworkInterface {
 
         this.displayMessage(Icons.LOADING + " " + CoolerState.PROCESSING);
         Tools.delay(2000);
-
-        String error = mainPP.sendRequestToActuator(Operation.TURNONCOOLER);
-
-        this.displayMessage(Icons.WAITING + " " + CoolerState.WAITING);
+        this.displayMessage(Icons.WAITING + "  " + CoolerState.WAITING);
         Tools.delay();
 
-        if(error == null)
-            this.displayMessage("The cooler has been turned on successfully");
+        boolean isTurnedOn = mainPP.sendRequestToActuator(Operation.TURNONCOOLER);
+        if(isTurnedOn)
+            this.displayMessage("The cooler has been turned on successfully " + Icons.COOLING);
     }
 
     @Override
@@ -134,13 +149,11 @@ public class NetworkInterface implements INetworkInterface {
 
         this.displayMessage(Icons.LOADING + " " + CoolerState.PROCESSING);
         Tools.delay(2000);
-
-        String error = mainPP.sendRequestToActuator(Operation.TURNOFFCOOLER);
-
-        this.displayMessage(Icons.WAITING + " " + CoolerState.WAITING);
+        this.displayMessage(Icons.WAITING + "  " + CoolerState.WAITING);
         Tools.delay();
 
-        if(error == null)
-            this.displayMessage("The cooler has been turned off successfully");
+        boolean isTurnedOff = mainPP.sendRequestToActuator(Operation.TURNOFFCOOLER);
+        if(isTurnedOff)
+            this.displayMessage("The cooler has been turned off successfully " + Icons.POWEROFF);
     }
 }

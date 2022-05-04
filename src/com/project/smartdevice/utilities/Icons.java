@@ -1,7 +1,7 @@
 package com.project.smartdevice.utilities;
 
 public enum Icons {
-    POWER("⏻"),
+    POWEROFF("⏻"),
     ERROR("❌"),
     WARNING("⚠️"),
     SETTING("⚙️"),
@@ -16,7 +16,7 @@ public enum Icons {
     THERMOMETER("\uD83C\uDF21️"),
     OUTOFSERVICE("\uD83D\uDEE0️");
 
-    public String content;
+    public final String content;
 
     Icons(String content){
         this.content = content;
