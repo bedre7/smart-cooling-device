@@ -4,4 +4,5 @@ public interface IUserService {
     String readUserInput();
     boolean searchUser(String username);
     User loginUser(String username, String password);
+    void connectionControl();
 }

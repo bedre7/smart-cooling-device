@@ -6,4 +6,5 @@ public interface IDatabaseMS {
     Connection connect();
     boolean searchUser(String username);
     User authenticateUser(String username, String password);
+    void connectionControl();
 }

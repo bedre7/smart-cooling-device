@@ -5,21 +5,21 @@ import java.util.Random;
 
 public class TemperatureSensor implements ITemperatureSensor{
 
-    private final double efficiency;
+    private double efficiency;
 
-    public TemperatureSensor(){
-        efficiency = 0.97;
+    public void setEfficiency(double efficiency) {
+        this.efficiency = efficiency;
     }
+
     @Override
     public Double readTemperature() {
-        Double temperature = null;
+        Double temperature;
         Random rand = new Random();
         double error = rand.nextDouble(efficiency + 0.03);
 
         if(error < efficiency)
         {
-            temperature = (rand.nextDouble(30) + 5);
-
+            temperature = (rand.nextDouble(30) + 10);
         }
         else
             return null;

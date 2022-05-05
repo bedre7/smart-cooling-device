@@ -5,8 +5,8 @@ import com.project.smartdevice.utilities.Icons;
 
 public class User implements IObserver {
 
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
 
     public User(Builder builder){
         this.username=builder.username;
@@ -15,13 +15,13 @@ public class User implements IObserver {
 
     @Override
     public void update(String message) {
-        System.out.println(Icons.NOTIFICATION +"Message to user \""+getUsername()+"\": -> "+message);
+        System.out.println(Icons.NOTIFICATION +" Message to user \""+getUsername()+"\": -> "+message);
     }
 
     public static class Builder{
 
-        private String username;
-        private String password;
+        private final String username;
+        private final String password;
 
         public Builder(String username, String password){
             this.username=username;
