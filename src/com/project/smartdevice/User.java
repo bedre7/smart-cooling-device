@@ -15,7 +15,7 @@ public class User implements IObserver {
 
     @Override
     public void update(String message) {
-        System.out.println(Icons.NOTIFICATION +"Message to user \""+getUsername()+"\": -> "+message);
+        System.out.println(Icons.NOTIFICATION +" Message to user \""+getUsername()+"\": -> "+message);
     }
 
     public static class Builder{

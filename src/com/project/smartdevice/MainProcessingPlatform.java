@@ -1,5 +1,9 @@
 package com.project.smartdevice;
 
+import com.project.smartdevice.patterns.factory.ActuatorFactory;
+import com.project.smartdevice.patterns.factory.IActuatorFactory;
+import com.project.smartdevice.patterns.factory.ITemperatureFactory;
+import com.project.smartdevice.patterns.factory.TemperatureFactory;
 import com.project.smartdevice.patterns.observer.IObserver;
 import com.project.smartdevice.patterns.observer.ISubject;
 import com.project.smartdevice.patterns.observer.Publisher;
@@ -9,13 +13,16 @@ import com.project.smartdevice.utilities.Operation;
 
 public class MainProcessingPlatform implements IMainProcessingPlatform{
 
+    private IActuatorFactory actuatorFactory;
+    private ITemperatureFactory tSFactory;
     private IActuator actuator;
     private ITemperatureSensor temperatureSensor;
     private ISubject publisher;
 
     public MainProcessingPlatform(){
-        actuator = new Actuator(CoolerState.OFF);
-        temperatureSensor = new TemperatureSensor();
+        actuatorFactory = new ActuatorFactory();
+        tSFactory = new TemperatureFactory();
+        actuator = actuatorFactory.factoryMethod();
         publisher = new Publisher();
     }
 

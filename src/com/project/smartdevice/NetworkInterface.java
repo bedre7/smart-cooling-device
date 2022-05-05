@@ -74,8 +74,8 @@ public class NetworkInterface implements INetworkInterface {
             this.promptUser(Icons.USER + " Username ");
             String username = userService.readUserInput();
 
-            userWasFound = true;
-//            userWasFound = userService.searchUser(username);
+//            userWasFound = true;
+            userWasFound = userService.searchUser(username);
             loginAttempts++;
 
             if(!userWasFound){
@@ -88,11 +88,11 @@ public class NetworkInterface implements INetworkInterface {
                 this.promptUser(Icons.PASSWORD + " Password ");
                 String password = userService.readUserInput();
 
-//                user = userService.loginUser(username, password);
+                user = userService.loginUser(username, password);
                 this.displayMessage("\n" + Icons.LOADING + " Logging you in...");
                 Tools.delay();
 
-                user = new User.Builder(username, password).build();
+//                user = new User.Builder(username, password).build();
                 if(user == null){
                     this.displayMessage("\nIncorrect password, please try again...");
                     Tools.clearScreen();

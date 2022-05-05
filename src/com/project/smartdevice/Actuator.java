@@ -7,12 +7,14 @@ import java.util.Random;
 public class Actuator implements IActuator{
 
     private CoolerState currentState;
-    private final double efficiency;
+    private double efficiency;
 
-    public Actuator(CoolerState initialState)
-    {
-        currentState = initialState;
-        efficiency = 0.97;
+    public void setCurrentState(CoolerState currentState) {
+        this.currentState = currentState;
+    }
+
+    public void setEfficiency(double efficiency) {
+        this.efficiency = efficiency;
     }
 
     public CoolerState getCurrentState() {
