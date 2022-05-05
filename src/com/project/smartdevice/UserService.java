@@ -3,7 +3,7 @@ package com.project.smartdevice;
 import java.util.Scanner;
 
 public class UserService implements IUserService {
-    private IDatabaseMS database;
+    private final IDatabaseMS database;
 
     public UserService(IDatabaseMS database){
         this.database=database;
@@ -29,5 +29,8 @@ public class UserService implements IUserService {
         return getDatabase().searchUser(username);
     }
 
-
+    @Override
+    public void connectionControl() {
+        getDatabase().connectionControl();
+    }
 }

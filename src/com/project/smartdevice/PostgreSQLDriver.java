@@ -12,32 +12,41 @@ public class PostgreSQLDriver implements IDatabaseMS {
 
         final String db_NAME="smart-cooling-device";
         final String db_USER="postgres";
-        final int db_PORT=5432;
-        final String db_PASSWORD="1321";
+        final int db_PORT=5433;
+        final String db_PASSWORD="6862";
         final String db_URLJDBC="jdbc:postgresql://localhost:"+db_PORT+"/"+db_NAME;
 
         try{
             con= DriverManager.getConnection(db_URLJDBC,db_USER,db_PASSWORD);
-            if(con!=null)
-                System.out.println("Connected successfully... "+ Icons.SUCCESS);
-            else
-                System.out.println("Connection error " + Icons.ERROR);
-
+            Tools.delay(1500);
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return con;
     }
+    public void connectionControl(){
 
+        Connection con = this.connect();
+        System.out.println(Icons.LOADING+" Connecting to Database...");
+        Tools.delay();
+
+        if(con!=null){
+            System.out.println("Connected to Database successfully... "+ Icons.SUCCESS+"\n");
+        }
+        else
+            System.out.println("Database connection error " + Icons.ERROR+"\n");
+
+    }
     @Override
     public boolean searchUser(String username) {
-        System.out.println(Icons.LOADING + " Searching user...");
+        Connection conn = this.connect();
 
+        System.out.println(Icons.LOADING + " Searching user...");
+        Tools.delay(800);
         boolean isUser = false;
 
-        String sql = "SELECT * FROM \"User\" WHERE username =" + username ;
+        String sql = "SELECT * FROM \"User\" WHERE username =\'" + username+"\'" ;
 
-        Connection conn = this.connect();
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -59,33 +68,33 @@ public class PostgreSQLDriver implements IDatabaseMS {
     public User authenticateUser(String username, String password) {
         User user = null;
 
+        Connection conn = this.connect();
+
         System.out.println(Icons.LOADING+" Authenticating user...");
+        Tools.delay(1200);
 
-        if(searchUser(username)){
 
-            String sql = "SELECT *  FROM \"User\" WHERE \"username\"="+username+" AND \"password\"=" + password;
+        String sql = "SELECT *  FROM \"User\" WHERE \"username\"=\'"+username+"\' AND \"password\"=\'" + password+"\'";
 
-            Connection conn = this.connect();
-            try {
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql);
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
 
-                conn.close();
+            conn.close();
 
-                while (rs.next()) {
-                    username = rs.getString("username");
-                    password = rs.getString("password");
+            while (rs.next()) {
+                username = rs.getString("username");
+                password = rs.getString("password");
 
-                    user = new User.Builder(username, password)
-                            .build();
+                user = new User.Builder(username, password)
+                        .build();
 
-                    System.out.println(user+ "has been authenticated ");
-                }
-                rs.close();
-                stmt.close();
-            } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(user+ "has been authenticated ");
             }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return user;

@@ -62,49 +62,51 @@ public class NetworkInterface implements INetworkInterface {
 
     @Override
     public void displayLogin() {
-        this.displayMessage("\n+=========================================================+");
-        this.displayMessage("|                           LOGIN                         |");
-        this.displayMessage("+=========================================================+\n\n");
 
         IUserService userService = new UserService(new PostgreSQLDriver());
         int loginAttempts = 0;
-        boolean userWasFound = false;
+        boolean userWasFound;
+
+        userService.connectionControl();
 
         do{
+            this.displayMessage("+=========================================================+");
+            this.displayMessage("|                           LOGIN                         |");
+            this.displayMessage("+=========================================================+\n\n");
+
             this.promptUser(Icons.USER + " Username ");
             String username = userService.readUserInput();
 
-//            userWasFound = true;
             userWasFound = userService.searchUser(username);
             loginAttempts++;
 
             if(!userWasFound){
                 this.displayMessage("\nNo such username was found, please try again...");
-                Tools.clearScreen();
-                if(loginAttempts == 3)
+                Tools.delay(1000);
+                if(loginAttempts % 3 == 0)
                     Tools.awaitUser(5);
             }
-            else if(userWasFound) {
+            else{
                 this.promptUser(Icons.PASSWORD + " Password ");
                 String password = userService.readUserInput();
 
                 user = userService.loginUser(username, password);
-                this.displayMessage("\n" + Icons.LOADING + " Logging you in...");
-                Tools.delay();
-
-//                user = new User.Builder(username, password).build();
                 if(user == null){
                     this.displayMessage("\nIncorrect password, please try again...");
-                    Tools.clearScreen();
+                    this.displayMessage("Authentication failed "+Icons.ERROR);
+                    Tools.delay(2000);
                 }
                 else{
+                    this.displayMessage("\n" + Icons.LOADING + " Logging you in...");
+                    Tools.delay();
                     this.displayMessage("Logged in successfully " + Icons.SUCCESS);
                     this.displayMessage("Welcome " + user.getUsername() + "!\n");
                     Tools.delay(4000);
                     mainPP.attachUser(user);
                 }
             }
-        }while(!userWasFound);
+            Tools.clearScreen();
+        }while(!(userWasFound) || user == null);
     }
 
     @Override

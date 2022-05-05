@@ -13,7 +13,7 @@ public class TemperatureSensor implements ITemperatureSensor{
 
     @Override
     public Double readTemperature() {
-        Double temperature = null;
+        Double temperature;
         Random rand = new Random();
         double error = rand.nextDouble(efficiency + 0.03);
 

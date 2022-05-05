@@ -1,7 +1,7 @@
 package com.project.smartdevice.patterns.factory;
 
-import com.project.smartdevice.TemperatureSensor;
+import com.project.smartdevice.ITemperatureSensor;
 
 public interface ITemperatureFactory {
-    TemperatureSensor factoryMethod();
+    ITemperatureSensor factoryMethod();
 }
