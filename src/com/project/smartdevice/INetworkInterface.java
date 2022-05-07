@@ -6,8 +6,8 @@ public interface INetworkInterface {
     Operation displayMenu();
     void displayMessage(String message);
     void promptUser(String request);
-    void displayLogin();
-    void logoutUser();
+    User displayLogin();
+    void logoutUser(User user);
     void displayTemperature();
     void turnOnCooler();
     void turnOffCooler();

@@ -9,11 +9,9 @@ import java.util.Scanner;
 public class NetworkInterface implements INetworkInterface {
 
     private final IMainProcessingPlatform mainPP;
-    private User user;
 
     public NetworkInterface(){
         mainPP = new MainProcessingPlatform();
-        user = null;
     }
 
     @Override
@@ -61,11 +59,13 @@ public class NetworkInterface implements INetworkInterface {
     }
 
     @Override
-    public void displayLogin() {
-
+    public User displayLogin() {
         IUserService userService = new UserService(new PostgreSQLDriver());
+        User user = null;
+
         int loginAttempts = 0;
         boolean userWasFound;
+        boolean loggedIn = false;
 
         userService.connectionControl();
 
@@ -80,11 +80,9 @@ public class NetworkInterface implements INetworkInterface {
             userWasFound = userService.searchUser(username);
             loginAttempts++;
 
-            if(!userWasFound){
+            if(!userWasFound && loginAttempts < 4){
                 this.displayMessage("\nNo such username was found, please try again...");
                 Tools.delay(1000);
-                if(loginAttempts % 3 == 0)
-                    Tools.awaitUser(5);
             }
             else{
                 this.promptUser(Icons.PASSWORD + " Password ");
@@ -100,17 +98,26 @@ public class NetworkInterface implements INetworkInterface {
                     this.displayMessage("\n" + Icons.LOADING + " Logging you in...");
                     Tools.delay();
                     this.displayMessage("Logged in successfully " + Icons.SUCCESS);
+                    loggedIn = true;
                     this.displayMessage("Welcome " + user.getUsername() + "!\n");
                     Tools.delay(4000);
                     mainPP.attachUser(user);
                 }
             }
+            if(!loggedIn && loginAttempts == 3)
+                Tools.awaitUser(5);
+            if(!loggedIn && loginAttempts == 4){
+                this.displayMessage("Too many login attempts, Exiting...");
+                System.exit(0);
+            }
             Tools.clearScreen();
         }while(!(userWasFound) || user == null);
+
+        return user;
     }
 
     @Override
-    public void logoutUser() {
+    public void logoutUser(User user) {
         this.displayMessage(Icons.LOADING + " Logging you out... ");
         Tools.delay();
         this.mainPP.detachUser(user);

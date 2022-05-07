@@ -12,8 +12,8 @@ public class PostgreSQLDriver implements IDatabaseMS {
 
         final String db_NAME="smart-cooling-device";
         final String db_USER="postgres";
-        final int db_PORT=5433;
-        final String db_PASSWORD="6862";
+        final int db_PORT=5432;
+        final String db_PASSWORD="1321";
         final String db_URLJDBC="jdbc:postgresql://localhost:"+db_PORT+"/"+db_NAME;
 
         try{

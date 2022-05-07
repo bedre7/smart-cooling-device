@@ -13,7 +13,7 @@ public class SmartDevice implements ISmartDevice{
     @Override
     public void run()
     {
-        this.networkInterface.displayLogin();
+        User user = this.networkInterface.displayLogin();
         this.networkInterface.displayMessage(Icons.LOADING + " Starting the device ...");
         Tools.delay();
         this.networkInterface.displayMessage(Icons.SETTING + "" + CoolerState.TESTING);
@@ -28,7 +28,7 @@ public class SmartDevice implements ISmartDevice{
                 case DISPLAYTEMPERATURE -> this.networkInterface.displayTemperature();
                 case TURNONCOOLER -> this.networkInterface.turnOnCooler();
                 case TURNOFFCOOLER -> this.networkInterface.turnOffCooler();
-                case LOGOUT -> this.networkInterface.logoutUser();
+                case LOGOUT -> this.networkInterface.logoutUser(user);
             }
 
             Tools.redirect("\nPress Enter to continue...");
