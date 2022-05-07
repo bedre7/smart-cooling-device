@@ -1,6 +1,6 @@
 package com.project.smartdevice;
 
-import com.project.smartdevice.patterns.factory.ActuatoryFactory;
+import com.project.smartdevice.patterns.factory.ActuatorFactory;
 import com.project.smartdevice.patterns.factory.IActuatorFactory;
 import com.project.smartdevice.patterns.factory.ITemperatureFactory;
 import com.project.smartdevice.patterns.factory.TemperatureFactory;
@@ -20,7 +20,7 @@ public class MainProcessingPlatform implements IMainProcessingPlatform{
     private final ITemperatureFactory temperatureFactory;
 
     public MainProcessingPlatform(){
-        actuatorFactory = new ActuatoryFactory();
+        actuatorFactory = new ActuatorFactory();
         actuator = actuatorFactory.factoryMethod();
         temperatureFactory=new TemperatureFactory();
         temperatureSensor = temperatureFactory.factoryMethod();
