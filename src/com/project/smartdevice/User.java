@@ -37,10 +37,6 @@ public class User implements IObserver {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     @Override
     public String toString() {
         return "User{ " + username + " } ";
