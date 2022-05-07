@@ -33,9 +33,10 @@ public class PostgreSQLDriver implements IDatabaseMS {
         if(con!=null){
             System.out.println("Connected to Database successfully... "+ Icons.SUCCESS+"\n");
         }
-        else
+        else{
             System.out.println("Database connection error " + Icons.ERROR+"\n");
-
+            System.exit(0);
+        }
     }
     @Override
     public boolean searchUser(String username) {
