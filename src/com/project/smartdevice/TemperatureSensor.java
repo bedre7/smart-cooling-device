@@ -15,6 +15,7 @@ public class TemperatureSensor implements ITemperatureSensor{
     public Double readTemperature() {
         Double temperature;
         Random rand = new Random();
+        //The temperature sensor works 97% of the time
         double error = rand.nextDouble(efficiency + 0.03);
 
         if(error < efficiency)

@@ -120,14 +120,14 @@ public class NetworkInterface implements INetworkInterface {
     public void logoutUser(User user) {
         this.displayMessage(Icons.LOADING + " Logging you out... ");
         Tools.delay();
-        this.mainPP.detachUser(user);
+        this.mainPP.detachUser(user);       //User is detached from the publisher
         this.displayMessage("Logged out");
         System.exit(0);
     }
 
     @Override
     public void displayTemperature() {
-
+        //to simulate the working mechanism of the device
         this.displayMessage(Icons.LOADING + " " + CoolerState.PROCESSING);
         Tools.delay(2000);
         this.displayMessage(Icons.WAITING + "  " + CoolerState.WAITING);
@@ -142,7 +142,7 @@ public class NetworkInterface implements INetworkInterface {
 
     @Override
     public void turnOnCooler() {
-
+        //to simulate the working mechanism of the device
         this.displayMessage(Icons.LOADING + " " + CoolerState.PROCESSING);
         Tools.delay(2000);
         this.displayMessage(Icons.WAITING + "  " + CoolerState.WAITING);
@@ -155,7 +155,7 @@ public class NetworkInterface implements INetworkInterface {
 
     @Override
     public void turnOffCooler() {
-
+        //to simulate the working mechanism of the device
         this.displayMessage(Icons.LOADING + " " + CoolerState.PROCESSING);
         Tools.delay(2000);
         this.displayMessage(Icons.WAITING + "  " + CoolerState.WAITING);

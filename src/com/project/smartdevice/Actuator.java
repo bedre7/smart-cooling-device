@@ -24,6 +24,7 @@ public class Actuator implements IActuator{
     @Override
     public CoolerState turnOnCooler() {
         Random rand = new Random();
+        //The actuator works 97% of the time
         double error = rand.nextDouble(efficiency + 0.03);
 
         if(error < efficiency){

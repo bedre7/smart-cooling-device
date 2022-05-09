@@ -14,6 +14,7 @@ public class SmartDevice implements ISmartDevice{
     public void run()
     {
         User user = this.networkInterface.displayLogin();
+        //simulating the working mechanism of the device
         this.networkInterface.displayMessage(Icons.LOADING + " Starting the device ...");
         Tools.delay();
         this.networkInterface.displayMessage(Icons.SETTING + "" + CoolerState.TESTING);

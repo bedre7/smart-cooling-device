@@ -66,12 +66,13 @@ public class MainProcessingPlatform implements IMainProcessingPlatform{
     public Double sendRequestToTempertureSensor() {
         Double temperature = temperatureSensor.readTemperature();
 
+        //if the temperature sensor failed to read temperature accurately
         if(temperature == null){
             this.publisher.notify(Icons.ERROR + " Error: Unable to read temperature, logging you out...");
             Tools.delay();
             System.exit(0);
         }
-        else if(temperature > 35){
+        else if(temperature > 30){          //critical temperature level is reached
             this.publisher.notify("Temperature is too high " + Icons.WARNING
                                     + ", you might want to turn on the cooler");
         }
