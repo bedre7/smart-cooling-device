@@ -35,6 +35,7 @@ public class NetworkInterface implements INetworkInterface {
         while(choice > 4 || choice < 1)
         {
             this.displayMessage("Please enter a valid choice [1-4]");
+            this.promptUser("Enter your choice");
             choice = scanner.nextInt();
         }
 
