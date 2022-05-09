@@ -2,7 +2,7 @@
 
 ## Description
 
-This project is a demonstration of a smart cooling device's working mechanism through the application of Object Oriented Programming along with some of the [design patterns](https://en.wikipedia.org/wiki/Software_design_pattern) like Observer pattern and Factory method; [SOLID principles](https://en.wikipedia.org/wiki/SOLID) like Dependency Inversion pattern and Single responsibility pattern.
+This project is a simulation of a smart cooling device's working mechanism through the application of Object Oriented Programming along with some of the [design patterns](https://en.wikipedia.org/wiki/Software_design_pattern) like Observer pattern and Factory method; [SOLID principles](https://en.wikipedia.org/wiki/SOLID) like Dependency Inversion pattern and Single responsibility pattern.
 
 ## Built With
 
